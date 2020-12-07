@@ -1,50 +1,58 @@
-// Object
-let object ={name:'Dima',age:'18',};
-
-// number Of Characters In Object
-
-function numberOfCharactersInObject(object){
-    let string ='';
-for (const key in object) {
-    if (object.hasOwnProperty(key)) {
-        string += object[key];
-    }
-}
-return string.length;
-}
-
-console.log(numberOfCharactersInObject(object));
-
-
-
-// ObjectWithoutValue
-
-
-function ObjectWithoutValue(object){
-let objectClone={};
-for (const key in object) {
-    if (object.hasOwnProperty(key)) {
-        objectClone[key] = key;
-        objectClone[key] = null;
-    };
-};
-return objectClone;
+const magicBook = {
+    recipes: {
+        golem: {
+            bone: 10,
+            stone: 100,
+            nail: 100,
+            poo: 53
+        },
+        littleDevil: {
+            lava: 10,
+            evil: 999
+        },
+    },
 };
 
-console.log(ObjectWithoutValue(object));
+const kitchen = {
+    bone: 999,
+    stone: 999,
+    nail: 999,
+    poo: 999,
+    lava: 999,
+    evil: 999,
+    kettle: {
+        material: 'metal',
+        ingridients: {},
+    },
+    addIngridientToKettle(nameOfIngridient, amount) {
+        this.kettle.ingridients[nameOfIngridient] = (this.kettle.ingridients[nameOfIngridient] || 0) + amount;
+        this[nameOfIngridient] -= amount;
+    },
+    cook(recipes) {
+        let keys = 0;
+        for (key in recipes) {
+            keys += 1;
+        }
+        let number = 0;
+        for(let key in recipes){
+            if (this.kettle.ingridients[key] >= recipes[key]) {
+                number+=1;
+                if(number==keys){
+                    console.log(recipes)
+                }
+            }
+            else {
+                alert('Не достаточно ресурсов!!!');
+                break;
+            }
+        }
+    },
+};
 
 
-// NumberOfCharactersInTheObject
+console.log(kitchen.addIngridientToKettle('bone', 10));
+console.log(kitchen.addIngridientToKettle('stone', 100));
+console.log(kitchen.addIngridientToKettle('nail', 100));
+console.log(kitchen.addIngridientToKettle('poo', 53));
 
-
-function NumberOfCharactersInTheObject(object){
-    let objectClone={};
-for (const key in object) {
-    if (object.hasOwnProperty(key)) {
-       objectClone[key]=String(object[key]).length
-    }
-}
-return objectClone;
-}
-
-console.log(NumberOfCharactersInTheObject(object));
+console.log(kitchen.cook(magicBook.recipes.golem));
