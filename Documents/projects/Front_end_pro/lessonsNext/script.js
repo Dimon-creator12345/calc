@@ -1,58 +1,53 @@
-const magicBook = {
-    recipes: {
-        golem: {
-            bone: 10,
-            stone: 100,
-            nail: 100,
-            poo: 53
-        },
-        littleDevil: {
-            lava: 10,
-            evil: 999
-        },
+var calculations = {
+    salasySum: function() {
+      return this.reduce(function(acc, next) {
+        return acc + next;
+      }, 0);
     },
-};
-
-const kitchen = {
-    bone: 999,
-    stone: 999,
-    nail: 999,
-    poo: 999,
-    lava: 999,
-    evil: 999,
-    kettle: {
-        material: 'metal',
-        ingridients: {},
+    logName: function() {
+      this.forEach(function(user) {
+        console.log(user.name);
+      });
     },
-    addIngridientToKettle(nameOfIngridient, amount) {
-        this.kettle.ingridients[nameOfIngridient] = (this.kettle.ingridients[nameOfIngridient] || 0) + amount;
-        this[nameOfIngridient] -= amount;
+    findUsersByIds: function(ids) {
+      return this.filter(function(user) {
+        return ids.find(function(id) {
+            return user.id === id;
+        })
+      });
+    }
+  };
+  
+  var users = [
+    {
+      id: 1,
+      name: "User 2",
+      salary: 200
     },
-    cook(recipes) {
-        let keys = 0;
-        for (key in recipes) {
-            keys += 1;
-        }
-        let number = 0;
-        for(let key in recipes){
-            if (this.kettle.ingridients[key] >= recipes[key]) {
-                number+=1;
-                if(number==keys){
-                    console.log(recipes)
-                }
-            }
-            else {
-                alert('Не достаточно ресурсов!!!');
-                break;
-            }
-        }
+    {
+      id: 2,
+      name: "User 3",
+      salary: 200
     },
-};
+    {
+      id: 3,
+      name: "User 4",
+      salary: 200
+    }
+  ];
 
+  // Names users
 
-console.log(kitchen.addIngridientToKettle('bone', 10));
-console.log(kitchen.addIngridientToKettle('stone', 100));
-console.log(kitchen.addIngridientToKettle('nail', 100));
-console.log(kitchen.addIngridientToKettle('poo', 53));
+  calculations.logName.call(users);
 
-console.log(kitchen.cook(magicBook.recipes.golem));
+  // Total salary
+
+  let salaries=users.map(function(item){
+    return item.salary
+  });
+
+  console.log(calculations.salasySum.call(salaries));
+
+  // Arrow users
+
+  console.log(calculations.findUsersByIds.call(users,[1,3]));
